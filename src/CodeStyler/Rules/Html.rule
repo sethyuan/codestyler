@@ -1,0 +1,16 @@
+﻿comment_script_css:(?<comment><!--(?:[^-]|-(?!->))*-->)|(?<script>(?i:(?<=<script(?:\s[^>]*)?>)(?(/script>)|.)+(?=</script>)))|(?<css>(?i:(?<=<style(?:\s[^>]*)?>)(?(/style>)|.)+(?=</style>)))
+
+css.comment:/\*(?:[^\*]|\*(?=[^/]))*\*/
+css.selector:(?<=(?:\r\n|\n|\r|^)[ \t]*)[^{\r\n \t][^{\r\n]*(?=\s*{)
+css.property:(?<=(?:{|;)\s*)[^:\s]+(?=\s*:)
+css.value:(?<=:)[^;}]+(?=\s*(?:;|}))
+
+script.comment_and_string:(?<multiline_comment>/\*(?:[^\*]|\*(?=[^/]))*\*/)|(?<singleline_comment>//[^\r\n]*(?=(?:\r\n|\n|\r|$)))|(?<regular_expression>/(?:\\\\|\\/|[^/])+/[ig]*)|(?<double_quoted_string>"(?:\\\\|\\"|[^"\r\n])*")|(?<single_quoted_string>'(?:\\\\|\\'|[^'\r\n])*')
+script.keyword:\b(?:break|continue|do|for|import|new|this|void|case|default|else|function|in|return|typeof|while|comment|delete|export|if|label|switch|var|with|abstract|implements|protected|boolean|instanceOf|public|byte|int|short|char|interface|static|double|long|synchronized|false|native|throws|final|null|transient|float|package|true|goto|private|catch|enum|throw|class|extends|try|const|finally|debugger|super)\b
+script.operator:==|!=|<=|>=|&&|\|\||\+=|-=|\*=|/=|&=|\|=|=|\+|-|\*|/|<|>|&|\|
+
+doctype:(?i:<!DOCTYPE (?:<![^>]+>|[^>])+>)
+value:(?<=<[^<>]+=)(?:"[^"\r\n]+"|'[^'\r\n]+'|[^ \t\r\n]+)
+attribute:(?<=<[^<>]+[ \t])[^=> \t"]+(?==)
+element:(?<=<\??)[\w\._\-:]+|(?<=</)[\w\._\-:]+
+tag:<\?|\?>|</|<|/>|>

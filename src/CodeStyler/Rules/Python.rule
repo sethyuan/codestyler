@@ -1,0 +1,3 @@
+﻿comment_and_string:(?<comment>#[^\r\n]*(?=(?:\r\n|\n|\r|$)))|(?<triple_double_quoted_string>(?i:ur|u|r)?"""(?((?<!\\)""")|.)*""")|(?<triple_single_quoted_string>(?i:ur|u|r)?'''(?((?<!\\)''')|.)*''')|(?<double_quoted_string>(?i:ur|u|r)?"(?:\\\\|\\"|[^"\r\n])*")|(?<single_quoted_string>(?i:ur|u|r)?'(?:\\\\|\\'|[^'\r\n])*')
+keyword:\b(?:and|del|from|not|while|as|elif|global|or|with|assert|else|if|pass|yield|break|except|import|print|class|exec|in|raise|continue|finally|is|return|def|for|lambda|try)\b
+operator://=|\*\*=|<<=|>>=|==|!=|<=|>=|<>|\*\*|//|<<|>>|\+=|-=|\*=|/=|&=|\|=|\^=|%=|=|\+|-|\*|/|%|~|<|>|\^|&|\|

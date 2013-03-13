@@ -1,0 +1,80 @@
+﻿@reference Cavingdeep.CodeStyler.dll
+@reference System.Web.dll
+@import System.Collections.Generic
+@import System.Text.RegularExpressions
+@import System.Web
+@import Cavingdeep.CodeStyler
+@param tokens: IEnumerable<Token>
+@
+<div style="border: gray 1px solid; padding: 4px; font-size: 8pt; margin: 20px 0px 10px 0px; overflow: auto; width: 97.5%; max-height: 250px; line-height: 12pt; background-color: #f4f4f4">
+  <div style="padding: 0px; cursor: text; font-family: Consolas, &#39;Courier New&#39;, courier, monospace; overflow: visible; width: 100%; color: black; border-style: none; line-height: 12pt;">
+@+ FormatTokens(tokens)
+  </div>
+</div>
+@
+@section FormatTokens(tokens: IEnumerable<Token>)
+<pre style="padding: 0px; margin: 0em; font-family: Consolas, &#39;Courier New&#39;, courier, monospace; overflow: visible; width: 100%; color: black; border-style: none; line-height: 12pt;">
+@! Regex lineHandlerExpression = new Regex(@"\r\n|\n|\r");
+@! int lineCount = 1;
+<span style="color: #606060">@(lineCount++.ToString().PadLeft(4)):</span> @
+@code
+foreach (Token token in tokens) {
+    string text = lineHandlerExpression.Replace(
+        HttpUtility.HtmlEncode(token.Text),
+        delegate(Match match) {
+            return String.Format(
+                "{0}<span style=\"color: #606060\">{1}:</span> ",
+                match.Value,
+                lineCount++.ToString().PadLeft(4));
+        });
+
+    switch (token.Type) {
+    case "keyword":
+        @text
+        <span style="color: #ff8000">@(text)</span>@
+        @end_text
+        break;
+    case "code_block.xml_comment":
+        @text
+        <span style="color: #999999">@(text)</span>@
+        @end_text
+        break;
+    case "comment":
+    case "code_block.multiline_comment":
+    case "code_block.singleline_comment":
+        @text
+        <span style="color: #008000">@(text)</span>@
+        @end_text
+        break;
+    case "code_block.verbatim_string":
+    case "code_block.normal_string":
+    case "code_block.char_literal":
+        @text
+        <span style="color: #a31515">@(text)</span>@
+        @end_text
+        break;
+    case "code_block.keyword":
+        @text
+        <span style="color: #0000ff">@(text)</span>@
+        @end_text
+        break;
+    case "code_block.predirective":
+        @text
+        <span style="color: #cc6633">@(text)</span>@
+        @end_text
+        break;
+    case "code_block.operator":
+        @text
+        <span style="color: #ff00ff">@(text)</span>@
+        @end_text
+        break;
+    default:
+        @text
+        @(text)@
+        @end_text
+        break;
+    }
+}
+@end_code
+</pre>
+@end_section

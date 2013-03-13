@@ -1,0 +1,25 @@
+﻿@reference System.Core.dll
+@reference Cavingdeep.CodeStyler.dll
+@import System.Linq
+@import System.Collections.Generic
+@import Cavingdeep.CodeStyler
+@param tokens: IEnumerable<Token>
+@
+There is a total of @(tokens.Count()) tokens, which are:
+
+@code
+foreach (var token in tokens) {
+    @text
+    Token type: @(token.Type)
+    Token text: @(token.Text)
+    @end_text
+
+    Dcg.Write("\r\n");
+}
+@end_code
+
+@code
+foreach (var token in tokens) {
+    Dcg.Write(token.Text);
+}
+@end_code
